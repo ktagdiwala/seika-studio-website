@@ -1,0 +1,19 @@
+<%- include("partials/header.ejs") %>
+<body>
+    <%- include("partials/nav.ejs") %>
+    <h1> Your Custom Sets </h1>
+
+    <% for (i of sets) { %>
+        <%=i.name%> (<%=i.type%>) <br>
+        <%=i.description%> <br>
+        <div class="udLinks">
+            <a href="/customSets/edit?set_id=<%=i.set_id%>">Edit</a>
+            <a href="/customSets/delete?set_id=<%=i.set_id%>">Delete</a>
+        </div>
+        <p></p>
+
+    <% } %>
+
+    <%- include("partials/footer.ejs") %>
+    </body>
+</html>

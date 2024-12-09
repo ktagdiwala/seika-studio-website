@@ -1,0 +1,66 @@
+<%- include("partials/header.ejs") %> 
+<body>
+    <%- include("partials/nav.ejs") %>
+    <h2>Create a Custom Set</h2>
+   
+    <form method="POST" action="/customSets/new" class="input-form">
+        <!-- UPDATE user_id TO BE SET BASED ON SESSIONS -->
+        <input type="hidden" name="user_id" value="1">
+        <div class="cell">
+            <!-- First Question -->
+            <h3>1. Select the type of set you would like to create</h3>
+            <div id="q1">
+                <input type="radio" value="Solid Color" name="q1" id="solid" required="required"> <label for="solid"> Solid Color </label>
+                <input type="radio" value="Simple Design" name="q1" id="simple" required="required"> <label for="simple"> Simple Design </label>
+                <input type="radio" value="Complex Design" name="q1" id="complex" required="required"> <label for="complex"> Complex Design </label>
+            </div>
+            <br><br>
+            <div id="q1Feedback" class = "feedback"></div>
+            </td>
+        </div>
+        <div class="cell">
+            <!-- Second Question -->
+            <h3>2. What is the your nail size? (Refer to the chart below if you are unsure)</h3>
+            <select id="q2" name="q2" required="required">
+                <option value="" selected>Select One</option>
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="Large">Large</option>
+            </select>
+            <br><br>
+            <div id="q2Feedback" class = "feedback"></div>
+        </div>                
+
+        <div class="cell">
+            <!-- Third Question -->
+            <h3>3. What is your preferred nail length (in mm)?</h3>
+            <input type="number" id="q3" name="q3" required="required">
+            <br><br>
+            <div id="q3Feedback" class = "feedback"></div>
+        </div>
+
+        <div class="cell">
+            <!-- Fourth Question -->
+            <h3>4. Describe your nail set. You can include specs such as shape, colors,
+                designs, charms, effects, etc.</h3>
+            <textarea id="q4" name="q4" required="required"></textarea>
+            <br><br>
+            <div id="q4Feedback" class = "feedback"></div>
+        </div>             
+
+        <div class="cell">
+            <!-- Fifth Question -->
+            <h3>5. Name your set.</h3>
+            <input type="text" id="q5" name="q5" required="required">
+            <br><br>
+            <div id="q5Feedback" class = "feedback"></div>
+        </div>
+
+        <button id="create">Create</button>
+    </form>
+    <% if (typeof message != "undefined"){ %>
+        <h3><%=message%></h3>
+    <% } %>
+
+    <%- include("partials/footer.ejs") %>
+</body>
