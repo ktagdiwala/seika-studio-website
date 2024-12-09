@@ -1,13 +1,13 @@
-import express from 'express';
-import mysql from 'mysql2/promise';
+import express from "express";
+import mysql from "mysql2/promise";
 
 const app = express();
 
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 
 //for Express to get values using POST method
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
 //setting up database connection pool
 const pool = mysql.createPool({
@@ -21,8 +21,8 @@ const pool = mysql.createPool({
 const conn = await pool.getConnection();
 
 //routes
-app.get('/', (req, res) => {
-   res.send('Hello Express app!')
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
 app.get("/dbTest", async(req, res) => {
@@ -32,6 +32,6 @@ app.get("/dbTest", async(req, res) => {
     res.send(rows);
 });//dbTest
 
-app.listen(3000, ()=>{
-    console.log("Express server running")
-})
+app.listen(3000, () => {
+  console.log("Express server running");
+});
