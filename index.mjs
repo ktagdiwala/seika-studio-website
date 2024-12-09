@@ -25,6 +25,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/productGallery", (req, res) => {
+  res.render("productGallery");
+});
+
 app.get("/bookAnAppointment", (req, res) => {
   res.render("bookAnAppointment");
 });
