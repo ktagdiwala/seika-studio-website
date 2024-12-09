@@ -25,6 +25,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/bookAnAppointment", (req, res) => {
+  res.render("bookAnAppointment");
+});
+
 // app.get("/dbTest", async(req, res) => {
 //     let sql = "SELECT CURDATE()";
 //     const [rows] = await conn.query(sql);
