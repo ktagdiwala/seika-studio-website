@@ -25,6 +25,27 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/loginSignup", (req, res) => {
+  res.render("loginSignup");
+});
+
+app.post("/loginSignup", async (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+
+  let passwordHash = "";
+
+  let sql = `SELECT * FROM admin WHERE username = ?`;
+
+  const match = await bcrypt.compare(password, passwordHash);
+
+  if (match) {
+    res.render("landingPage");
+  } else {
+    res.redirect("/");
+  }
+});
+
 app.get("/dbTest", async (req, res) => {
   let sql = `SELECT *
                 FROM product`;
