@@ -21,6 +21,12 @@ app.use(
   })
 );
 
+// Making the userId available to all views without passing it in each route
+app.use((req, res, next) => {
+  res.locals.user = req.session.userId ? { id: req.session.userId } : null;
+  next();
+});
+
 //setting up database connection pool
 const pool = mysql.createPool({
   host: "walid-elgammal.online",
@@ -37,19 +43,19 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/customSets", async (req, res)=>{
+app.get("/customSets", async (req, res) => {
   let sql = `SELECT *
             FROM custom_set
             ORDER BY name`;
   const [rows] = await conn.query(sql);
-  res.render("customSets", {"sets":rows});
-});// View custom nail sets created by user
+  res.render("customSets", { sets: rows });
+}); // View custom nail sets created by user
 
-app.get("/customSets/new", (req, res)=>{
+app.get("/customSets/new", (req, res) => {
   res.render("createCustomSet");
-});// Create a custom nail set
+}); // Create a custom nail set
 
-app.post("/customSets/new", async function(req, res){
+app.post("/customSets/new", async function (req, res) {
   let user_id = req.body.user_id;
   let type = req.body.q1;
   let size = req.body.q2;
@@ -61,11 +67,10 @@ app.post("/customSets/new", async function(req, res){
               VALUES (?, ?, ?, ?, ?, ?)`;
   let params = [user_id, name, type, size, length, description];
   const [rows] = await conn.query(sql, params);
-  res.render("createCustomSet", 
-             {"message": "Custom set added!"});
-});// Add customized set to user collection
+  res.render("createCustomSet", { message: "Custom set added!" });
+}); // Add customized set to user collection
 
-app.get("/customSets/edit", async function(req, res){
+app.get("/customSets/edit", async function (req, res) {
   let set_id = req.query.setId;
   console.log("Set id = " + set_id);
   let sql = `SELECT * 
@@ -73,10 +78,10 @@ app.get("/customSets/edit", async function(req, res){
               WHERE set_id =  ?`;
   let params = [set_id];
   const [rows] = await conn.query(sql, params);
-  res.render("editCustomSet", {"set":rows});
-});// edit existing set
+  res.render("editCustomSet", { set: rows });
+}); // edit existing set
 
-app.post("/customSets/edit", async function(req, res){
+app.post("/customSets/edit", async function (req, res) {
   let set_id = req.body.set_id;
   let type = req.body.q1;
   let size = req.body.q2;
@@ -90,12 +95,12 @@ app.post("/customSets/edit", async function(req, res){
             length = ?,
             description = ?
             WHERE set_id = ?`;
-  let params = [name, type, size, length, description, set_id];  
-  const [rows] = await conn.query(sql,params);
+  let params = [name, type, size, length, description, set_id];
+  const [rows] = await conn.query(sql, params);
   res.redirect("/customSets");
-});// update set info (based on edits) in database
+}); // update set info (based on edits) in database
 
-app.get("/customSets/delete", async function(req, res){
+app.get("/customSets/delete", async function (req, res) {
   let set_id = req.query.setId;
   let sql = `DELETE
               FROM custom_set
@@ -103,10 +108,14 @@ app.get("/customSets/delete", async function(req, res){
   const [rows] = await conn.query(sql, [set_id]);
 
   res.redirect("/customSets");
-});// delete custom set
+}); // delete custom set
 
 app.get("/loginSignup", (req, res) => {
-  res.render("loginSignup");
+  if (req.session.userId) {
+    res.redirect("landingPage");
+  } else {
+    res.render("loginSignup");
+  }
 });
 
 // TODO: Seprate Login and Signup functionality -> app.post for /login and /signUp as signUp requires more fields
@@ -137,6 +146,7 @@ app.post("/loginSignup", async (req, res) => {
 
   if (passwordMatch) {
     req.session.authenticated = true;
+    req.session.userId = rows[0].user_id;
     res.render("landingPage");
   } else {
     res.redirect("/");
