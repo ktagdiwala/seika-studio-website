@@ -1,0 +1,84 @@
+<%- include("partials/header.ejs") %> 
+<body>
+    <%- include("partials/nav.ejs") %>
+    <h2>Edit a Custom Set</h2>
+   
+    <form method="POST" action="/customSets/edit" class="input-form">
+        <!-- UPDATE user_id TO BE SET BASED ON SESSIONS -->
+        <input type="hidden" name="user_id" value="1">
+        <input type="hidden" name="set_id" value="<%=set[0].set_id%>">
+        <div class="cell">
+            <!-- Q1 Set Type -->
+            <h3>1. Select the type of set you would like to create</h3>
+            <div id="q1">
+                <% if (set[0].type == "Solid Color") { %>
+                    <input type="radio" value="Solid Color" name="q1" id="solid" required="required" checked> <label for="solid"> Solid Color </label>
+                    <input type="radio" value="Simple Design" name="q1" id="simple" required="required"> <label for="simple"> Simple Design </label>
+                    <input type="radio" value="Complex Design" name="q1" id="complex" required="required"> <label for="complex"> Complex Design </label>
+                <%}else if (set[0].type == "Simple Design"){%>
+                    <input type="radio" value="Solid Color" name="q1" id="solid" required="required"> <label for="solid"> Solid Color </label>
+                    <input type="radio" value="Simple Design" name="q1" id="simple" required="required" checked> <label for="simple"> Simple Design </label>
+                    <input type="radio" value="Complex Design" name="q1" id="complex" required="required"> <label for="complex"> Complex Design </label>
+                <%}else{%>
+                    <input type="radio" value="Solid Color" name="q1" id="solid" required="required"> <label for="solid"> Solid Color </label>
+                    <input type="radio" value="Simple Design" name="q1" id="simple" required="required"> <label for="simple"> Simple Design </label>
+                    <input type="radio" value="Complex Design" name="q1" id="complex" required="required" checked> <label for="complex"> Complex Design </label>
+                <%}%>
+            </div>
+            <br><br>
+            <div id="q1Feedback" class = "feedback"></div>
+            </td>
+        </div>
+        <div class="cell">
+            <!-- Q2 Nail Size -->
+            <h3>2. What is the your nail size? (Refer to the chart below if you are unsure)</h3>
+            <select id="q2" name="q2" required="required">
+                <option value="">Select One</option>
+                <% if (set[0].size == "Small") { %>
+                    <option value="Small" selected>Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                <%}else if (set[0].size == "Medium"){%>
+                    <option value="Small">Small</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="Large">Large</option>
+                <%}else{%>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large" selected>Large</option>
+                <%}%>
+            </select>
+            <br><br>
+            <div id="q2Feedback" class = "feedback"></div>
+        </div>                
+
+        <div class="cell">
+            <!-- Q3 Nail Length -->
+            <h3>3. What is your preferred nail length (in mm)?</h3>
+            <input type="number" id="q3" name="q3" required="required" value="<%=set[0].length%>">
+            <br><br>
+            <div id="q3Feedback" class = "feedback"></div>
+        </div>
+
+        <div class="cell">
+            <!-- Q4 Description -->
+            <h3>4. Describe your nail set. You can include specs such as shape, colors,
+                designs, charms, effects, etc.</h3>
+            <textarea id="q4" name="q4" required="required"><%=set[0].description%></textarea>
+            <br><br>
+            <div id="q4Feedback" class = "feedback"></div>
+        </div>             
+
+        <div class="cell">
+            <!-- Q5 Set Name -->
+            <h3>5. Name your set.</h3>
+            <input type="text" id="q5" name="q5" required="required" value="<%=set[0].name%>">
+            <br><br>
+            <div id="q5Feedback" class = "feedback"></div>
+        </div>
+
+        <button id="update">Update</button>
+    </form>
+
+    <%- include("partials/footer.ejs") %>
+</body>
