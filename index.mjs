@@ -25,20 +25,16 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/productGallery", (req, res) => {
-  res.render("productGallery");
-});
-
 app.get("/bookAnAppointment", (req, res) => {
   res.render("bookAnAppointment");
 });
 
-app.get("/productGallery", (req, res) => {
-  res.render("productGallery");
-});
-
-app.get("/bookAnAppointment", (req, res) => {
-  res.render("bookAnAppointment");
+app.get("/productGallery", async (req, res) => {
+  let sql = `SELECT *
+          FROM product
+          ORDER BY category`;
+const [rows] = await conn.query(sql);
+res.render("productGallery", {"picGallery" : rows});
 });
 
 app.get("/customSets", async (req, res)=>{

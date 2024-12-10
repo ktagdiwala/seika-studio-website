@@ -9,6 +9,10 @@ body {
     font-style: normal;
     background-color: #F1F2EB;
     color:#535446;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0;
+    justify-content: space-between;
 }
 
 input {
@@ -117,21 +121,7 @@ td{
     justify-content: center;
     align-items: center; 
 }
-body {
-    /* background-image: url("../img/background.jpg");*/
-     background-size:cover; 
-     background-position: center; 
-     background-repeat: no-repeat;
-     text-align: center;
-     min-height: 100vh;
-     margin: 0;
-     color:black;
-     display: flex;
-     flex-direction: column;
-     font-family: "Montserrat", serif;
-     font-size: large;
-     justify-content: space-between;
-   }
+   
    header {
      height: 4rem;
      margin-top: 15px;
@@ -144,22 +134,23 @@ body {
 nav a {
     padding: 15px;
     padding-bottom: 4px;
-    font-family: "Roboto mono", sans-serif;
-    font-size:  1em;
+    font-family: "Wix Madefor Text", sans-serif;
+    font-size:  1.5em;
     text-decoration:  none;
     color: black;
 }
 
 nav a:hover {                                       /* psuedo class */
     border-bottom: 2px teal solid;
-    font-size: 1.2em;
+    font-size: 1.7em;
     transition: .9s;                              /* transation effect */ 
 }
 nav a.current{
     font-weight: bold;
     }
+
 footer {
-    font-family: "Roboto mono", sans-serif;
+    font-family: "Wix Madefor Text", sans-serif;
     font-size:16px;
     letter-spacing: 0.05em;
     padding-top: 1em;
@@ -167,4 +158,6 @@ footer {
     color:black;
     width: 100%;
   }
- 
+ .modal-content {
+    background-color: #F1F2EB;
+ }
