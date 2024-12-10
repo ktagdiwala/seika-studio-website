@@ -52,7 +52,7 @@ app.post("/loginSignup", async (req, res) => {
   let passwordHash = "";
 
   let sql = `SELECT * 
-              FROM admin
+              FROM user
               WHERE email = ?`;
 
   const [rows] = await conn.query(sql, [username]);
