@@ -37,6 +37,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/bookAnAppointment", (req, res) => {
+  res.render("bookAnAppointment");
+});
+
 app.get("/customSets", async (req, res)=>{
   let sql = `SELECT *
             FROM custom_set

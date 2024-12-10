@@ -259,3 +259,10 @@ td{
     --bs-btn-active-color: #F6F3E7;
     transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
 }
+
+#googleForm {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; 
+}
