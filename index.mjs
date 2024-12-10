@@ -1,5 +1,7 @@
 import express from "express";
 import mysql from "mysql2/promise";
+import bcrypt from "bcrypt";
+import session from "express-session";
 
 const app = express();
 
@@ -8,6 +10,16 @@ app.use(express.static("public"));
 
 //for Express to get values using POST method
 app.use(express.urlencoded({ extended: true }));
+
+// For Express-Session
+app.set("trust proxy", 1);
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 //setting up database connection pool
 const pool = mysql.createPool({
@@ -30,17 +42,41 @@ app.get("/loginSignup", (req, res) => {
 });
 
 app.post("/loginSignup", async (req, res) => {
-  let username = req.body.username;
+  let username = req.body.email;
   let password = req.body.password;
+
+  console.log(username);
+  console.log(password);
 
   let passwordHash = "";
 
-  let sql = `SELECT * FROM admin WHERE username = ?`;
+  let sql = `SELECT * 
+              FROM admin
+              WHERE email = ?`;
 
-  const match = await bcrypt.compare(password, passwordHash);
+  const [rows] = await conn.query(sql, [username]);
 
-  if (match) {
+  console.log(rows);
+
+  if (rows.length > 0) {
+    passwordHash = rows[0].password;
+  }
+
+  const passwordMatch = await bcrypt.compare(password, passwordHash);
+
+  console.log(passwordMatch);
+
+  if (passwordMatch) {
+    req.session.authenticated = true;
     res.render("landingPage");
+  } else {
+    res.redirect("/");
+  }
+});
+
+app.get("landingPage", (req, res) => {
+  if (req.session.authenticated) {
+    res.render("landingPage.ejs");
   } else {
     res.redirect("/");
   }
