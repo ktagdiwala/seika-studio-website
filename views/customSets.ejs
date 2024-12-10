@@ -1,0 +1,22 @@
+<%- include("partials/header.ejs") %>
+<body>
+    <%- include("partials/nav.ejs") %>
+    <h1> Your Custom Sets </h1>
+    <form action="/customSets/new">
+        <button class = "btn btn-outline-primary">New Custom Set</button>
+    </form>
+
+    <% for (i of sets) { %>
+        <%=i.name%> (<%=i.type%>) <br>
+        <%=i.description%> <br>
+        <div class="udLinks">
+            <a href="/customSets/edit?setId=<%=i.set_id%>">Edit</a>
+            <a href="/customSets/delete?setId=<%=i.set_id%>">Delete</a>
+        </div>
+        <p></p>
+
+    <% } %>
+
+    <%- include("partials/footer.ejs") %>
+    </body>
+</html>
