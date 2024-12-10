@@ -41,6 +41,7 @@ app.get("/loginSignup", (req, res) => {
   res.render("loginSignup");
 });
 
+// TODO: Seprate Login and Signup functionality -> app.post for /login and /signUp as signUp requires more fields
 app.post("/loginSignup", async (req, res) => {
   let username = req.body.email;
   let password = req.body.password;
@@ -74,9 +75,17 @@ app.post("/loginSignup", async (req, res) => {
   }
 });
 
-app.get("landingPage", (req, res) => {
+// Simple logout route
+app.get("/logout", isAuthenticated, (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
+});
+
+// "Langing Page" which is meant to be a Profile page. Thinking about changing this to "/profile" to make it more clear.
+// This route only works if you are signed in
+app.get("/landingPage", isAuthenticated, (req, res) => {
   if (req.session.authenticated) {
-    res.render("landingPage.ejs");
+    res.render("landingPage");
   } else {
     res.redirect("/");
   }
@@ -92,3 +101,14 @@ app.get("/dbTest", async (req, res) => {
 app.listen(3000, () => {
   console.log("Express server running");
 });
+
+// Functions
+
+// Used as a Middleware function to check if the user is signed in for certain routes
+function isAuthenticated(req, res, next) {
+  if (!req.session.authenticated) {
+    res.redirect("/");
+  } else {
+    next();
+  }
+}
