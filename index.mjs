@@ -47,16 +47,8 @@ app.get("/bookAnAppointment", (req, res) => {
   res.render("bookAnAppointment");
 });
 
-app.get("/productGallery", async (req, res) => {
-  let sql = `SELECT *
-          FROM product
-          ORDER BY category`;
-const [rows] = await conn.query(sql);
-res.render("productGallery", {"picGallery" : rows});
-});
-
-app.get("/bookAnAppointment", (req, res) => {
-  res.render("bookAnAppointment");
+app.get("/signUp", (req, res) => {
+  res.render("signUp");
 });
 
 app.get("/productGallery", async (req, res) => {
@@ -66,11 +58,6 @@ app.get("/productGallery", async (req, res) => {
 const [rows] = await conn.query(sql);
 res.render("productGallery", {"picGallery" : rows});
 });
-
-app.get("/bookAnAppointment", (req, res) => {
-  res.render("bookAnAppointment");
-});
-
 
 app.get("/customSets", isAuthenticated, async (req, res) => {
     // let user_id = SESSION USER ID
@@ -147,7 +134,15 @@ app.get("/customSets/delete", isAuthenticated, async function (req, res) {
 
 app.get("/loginSignup", (req, res) => {
   if (req.session.userId) {
-    res.redirect("landingPage");
+    res.redirect("index");
+  } else {
+    res.render("loginSignup");
+  }
+});
+
+app.get("/signUp", (req, res) => {
+  if (req.session.userId) {
+    res.redirect("signUp");
   } else {
     res.render("loginSignup");
   }
@@ -182,11 +177,45 @@ app.post("/loginSignup", async (req, res) => {
   if (passwordMatch) {
     req.session.authenticated = true;
     req.session.userId = rows[0].user_id;
-    res.render("landingPage");
+    res.render("index");
   } else {
     res.render("loginSignup", {"message": "Incorrect username or password."});
   }
 });
+
+// app.post("/signUp", async (req, res) => {
+//   let username = req.body.email;
+//   let password = req.body.password;
+
+//   console.log(username);
+//   console.log(password);
+
+//   let passwordHash = "";
+
+//   let sql = `SELECT * 
+//               FROM user
+//               WHERE email = ?`;
+
+//   const [rows] = await conn.query(sql, [username]);
+
+//   console.log(rows);
+
+//   if (rows.length > 0) {
+//     passwordHash = rows[0].password;
+//   }
+
+//   const passwordMatch = await bcrypt.compare(password, passwordHash);
+
+//   console.log(passwordMatch);
+
+//   if (passwordMatch) {
+//     req.session.authenticated = true;
+//     req.session.userId = rows[0].user_id;
+//     res.render("index");
+//   } else {
+//     res.render("loginSignup", {"message": "Incorrect username or password."});
+//   }
+// });
 
 // Simple logout route
 app.get("/logout", isAuthenticated, (req, res) => {
