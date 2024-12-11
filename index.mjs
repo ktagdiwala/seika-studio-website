@@ -183,39 +183,39 @@ app.post("/loginSignup", async (req, res) => {
   }
 });
 
-app.post("/signUp", async (req, res) => {
-  let username = req.body.email;
-  let password = req.body.password;
+// app.post("/signUp", async (req, res) => {
+//   let username = req.body.email;
+//   let password = req.body.password;
 
-  console.log(username);
-  console.log(password);
+//   console.log(username);
+//   console.log(password);
 
-  let passwordHash = "";
+//   let passwordHash = "";
 
-  let sql = `SELECT * 
-              FROM user
-              WHERE email = ?`;
+//   let sql = `SELECT * 
+//               FROM user
+//               WHERE email = ?`;
 
-  const [rows] = await conn.query(sql, [username]);
+//   const [rows] = await conn.query(sql, [username]);
 
-  console.log(rows);
+//   console.log(rows);
 
-  if (rows.length > 0) {
-    passwordHash = rows[0].password;
-  }
+//   if (rows.length > 0) {
+//     passwordHash = rows[0].password;
+//   }
 
-  const passwordMatch = await bcrypt.compare(password, passwordHash);
+//   const passwordMatch = await bcrypt.compare(password, passwordHash);
 
-  console.log(passwordMatch);
+//   console.log(passwordMatch);
 
-  if (passwordMatch) {
-    req.session.authenticated = true;
-    req.session.userId = rows[0].user_id;
-    res.render("index");
-  } else {
-    res.render("loginSignup", {"message": "Incorrect username or password."});
-  }
-});
+//   if (passwordMatch) {
+//     req.session.authenticated = true;
+//     req.session.userId = rows[0].user_id;
+//     res.render("index");
+//   } else {
+//     res.render("loginSignup", {"message": "Incorrect username or password."});
+//   }
+// });
 
 // Simple logout route
 app.get("/logout", isAuthenticated, (req, res) => {
