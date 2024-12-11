@@ -11,6 +11,83 @@ body {
     font-style: normal;
     background-color: #F1F2EB;
     color:#535446;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0;
+    justify-content: space-between;
+}
+
+h1,h2,h3,h4,h5,h6,header {
+    font-family: "Poiret One", sans-serif;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+nav {
+    display: flex;
+    justify-content: baseline;
+    background-color: #3D0C02;
+    color: #F0E2CE;
+    width: 100%;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand-text { 
+    margin-left: 10px; 
+    font-size: 1.5rem;
+    color: #F0E2CE;
+    font-family: "Poiret One", sans-serif;
+    font-weight: bold;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.nav-link {
+    color: #F0E2CE;
+}
+
+.nav-link:hover {
+    background-color: #F0E2CE;
+    color: #3D0C02;
+}
+
+#logo {
+    height: 40px;
+    width: auto;
+}
+
+footer {
+    margin-top: auto;
+    margin-bottom: 10px;
+    bottom: 0;
+    width: 100%;
+    text-align: start;
+    color: #C19A6B;
+    font-weight: 400;
+}
+
+#footer-content { /* displays image and text side-by-side */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 0px;
+    padding-right: 20px;
+}
+
+p {
+    padding: 5px;
 }
 
 h1,h2,header {
@@ -197,7 +274,52 @@ td{
     background-color: #D8E2DC;
     transform: translateY(-3px);
     transition: 0.4s ease;
+}#googleForm {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; 
 }
+   
+   header {
+     height: 4rem;
+     margin-top: 15px;
+     color: azure;
+     text-align: left;
+     font-optical-sizing: auto;
+     font-weight: 900;
+     font-style: bold;
+   }
+nav a {
+    padding: 15px;
+    padding-bottom: 4px;
+    font-family: "Wix Madefor Text", sans-serif;
+    font-size:  1.5em;
+    text-decoration:  none;
+    color: black;
+}
+
+nav a:hover {                                       /* psuedo class */
+    border-bottom: 2px teal solid;
+    font-size: 1.7em;
+    transition: .9s;                              /* transation effect */ 
+}
+nav a.current{
+    font-weight: bold;
+    }
+
+footer {
+    font-family: "Wix Madefor Text", sans-serif;
+    font-size:16px;
+    letter-spacing: 0.05em;
+    padding-top: 1em;
+    padding-left: 4em;
+    color:black;
+    width: 100%;
+  }
+ .modal-content {
+    background-color: #F1F2EB;
+ }
 
 .parallax-container {
     position: relative;

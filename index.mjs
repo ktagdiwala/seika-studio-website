@@ -47,6 +47,30 @@ app.get("/bookAnAppointment", (req, res) => {
   res.render("bookAnAppointment");
 });
 
+app.get("/productGallery", async (req, res) => {
+  let sql = `SELECT *
+          FROM product
+          ORDER BY category`;
+const [rows] = await conn.query(sql);
+res.render("productGallery", {"picGallery" : rows});
+});
+
+app.get("/bookAnAppointment", (req, res) => {
+  res.render("bookAnAppointment");
+});
+
+app.get("/productGallery", async (req, res) => {
+  let sql = `SELECT *
+          FROM product
+          ORDER BY category`;
+const [rows] = await conn.query(sql);
+res.render("productGallery", {"picGallery" : rows});
+});
+
+app.get("/bookAnAppointment", (req, res) => {
+  res.render("bookAnAppointment");
+});
+
 
 app.get("/customSets", isAuthenticated, async (req, res) => {
     // let user_id = SESSION USER ID
