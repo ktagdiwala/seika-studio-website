@@ -1,49 +1,64 @@
-<%- include("partials/header.ejs") %> 
-    <body>
-        <%- include("partials/nav.ejs") %>
+<%- include("partials/header.ejs") %>
 
+  <body>
+    <%- include("partials/nav.ejs") %>
 
-        <h1>Our Gallery</h1>
-  
-        
+      <h1>Our Products</h1>
 
+      <% for (j of categories) { %>
+        <h2>
+          <%if(j.category!="Miscellaneous"){ %>
+            <%= j.category %> Collection
+          <%} else {%>
+            <%= j.category %>
+          <%}%>
+        </h2>
         <div class="container">
-            <div class="row">
-              <% for (let i = 0; i < picGallery.length; i++) { %>
+          <div class="row">
+            <% for (let i=0; i < picGallery.length; i++) { %>
+              <%if (picGallery[i].category==j.category) {%>
                 <div class="col-12 col-sm-6 col-md-4 mb-3">
-                  <div class="card h-100">
+                  <div class="card h-100 attachedColorBg">
                     <img src="./img/<%= picGallery[i].title %>.jpg" class="card-img-top" alt="<%= picGallery[i].title %>">
                     <div class="card-body">
-                      <h5 class="card-title"><%= picGallery[i].title %></h5>
-                      <p class="card-text"><%= picGallery[i].description %></p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                      <h5 class="card-title">
+                        <%= picGallery[i].title %>
+                      </h5>
+                      <p class="card-text">
+                        <%= picGallery[i].description %>
+                      </p>
+                      <p class="card-text"><small class="text-muted">More Information</small></p>
                     </div>
                   </div>
                 </div>
               <% } %>
+            <% } %>
+          </div>
+        </div>
+      <% } %>
+
+      <!-- Modal -->
+      <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="galleryModalLabel">Author Information</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div id="picInfo" class="pic_info"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
-
-        <!-- Modal -->
-<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="galleryModalLabel" >Author Information</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div id="picInfo" class="pic_info"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
-    </div>
-  </div>
 
-        <script src="js/script.js"></script>
+      <script src="js/script.js"></script>
 
-        <%- include("partials/footer.ejs") %>
-    </body>
-</html>
+      <%- include("partials/footer.ejs") %>
+  </body>
+
+  </html>

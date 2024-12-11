@@ -9,7 +9,7 @@
         <input type="hidden" name="set_id" value="<%=set[0].set_id%>">
         <div class="cell">
             <!-- Q1 Set Type -->
-            <h3>1. Select the type of set you would like to create</h3>
+            <h3 class="pineColor">1. Select the type of set you would like to create</h3>
             <div id="q1">
                 <% if (set[0].type == "Solid Color") { %>
                     <input type="radio" value="Solid Color" name="q1" id="solid" required="required" checked> <label for="solid"> Solid Color </label>
@@ -31,7 +31,7 @@
         </div>
         <div class="cell">
             <!-- Q2 Nail Size -->
-            <h3>2. What is the your nail size? (Refer to the chart below if you are unsure)</h3>
+            <h3 class="pineColor">2. What is the your nail size? (Refer to the chart below if you are unsure)</h3>
             <select id="q2" name="q2" required="required">
                 <option value="">Select One</option>
                 <% if (set[0].size == "Small") { %>
@@ -54,7 +54,7 @@
 
         <div class="cell">
             <!-- Q3 Nail Length -->
-            <h3>3. What is your preferred nail length (in mm)?</h3>
+            <h3 class="pineColor">3. What is your preferred nail length (in mm)?</h3>
             <input type="number" id="q3" name="q3" required="required" value="<%=set[0].length%>">
             <br><br>
             <div id="q3Feedback" class = "feedback"></div>
@@ -62,7 +62,7 @@
 
         <div class="cell">
             <!-- Q4 Description -->
-            <h3>4. Describe your nail set. You can include specs such as shape, colors, designs, charms, effects, etc.</h3>
+            <h3 class="pineColor">4. Describe your nail set. You can include specs such as shape, colors, designs, charms, effects, etc.</h3>
             <textarea id="q4" name="q4" required="required"><%=set[0].description%></textarea>
             <br><br>
             <div id="q4Feedback" class = "feedback"></div>
@@ -70,7 +70,7 @@
 
         <div class="cell">
             <!-- Q5 Set Name -->
-            <h3>5. Name your set.</h3>
+            <h3 class="pineColor">5. Name your set.</h3>
             <input type="text" id="q5" name="q5" required="required" value="<%=set[0].name%>">
             <br><br>
             <div id="q5Feedback" class = "feedback"></div>

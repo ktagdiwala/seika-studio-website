@@ -1,22 +1,29 @@
 <%- include("partials/header.ejs") %>
-<body>
-    <%- include("partials/nav.ejs") %>
-    <h1> Your Custom Sets </h1>
-    <form action="/customSets/new">
-        <button class = "btn btn-outline-primary">New Custom Set</button>
-    </form>
 
-    <% for (i of sets) { %>
-        <%=i.name%> (<%=i.type%>) <br>
-        <%=i.description%> <br>
-        <div class="udLinks">
-            <a href="/customSets/edit?setId=<%=i.set_id%>">Edit</a>
-            <a href="/customSets/delete?setId=<%=i.set_id%>">Delete</a>
-        </div>
-        <p></p>
+    <body>
+        <%- include("partials/nav.ejs") %>
+            <h1> Your Custom Sets </h1>
+            <form action="/customSets/new" style="width: 40%;" class="d-flex flex-row">
+                <button class="btn btn-primary full">New Custom Set</button>
+            </form>
 
-    <% } %>
+            <% for (i of sets) { %>
+                <div class="cell short">
+                    <h4 class="pineColor">
+                        <%=i.name%> (<%=i.type%>)
+                    </h4> <br>
+                    <p>
+                        <%=i.description%>
+                    </p> <br>
+                    <div class="udLinks">
+                        <a href="/customSets/edit?setId=<%=i.set_id%>" class="crud">Edit</a>
+                        <a href="/customSets/delete?setId=<%=i.set_id%>" class="crud">Delete</a>
+                    </div>
+                    <p></p>
+                </div>
+            <% } %>
 
-    <%- include("partials/footer.ejs") %>
+        <%- include("partials/footer.ejs") %>
     </body>
+
 </html>
