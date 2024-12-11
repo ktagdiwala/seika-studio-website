@@ -54,19 +54,13 @@ app.get("/signUp", (req, res) => {
 app.get("/productGallery", async (req, res) => {
   let sql = `SELECT *
           FROM product
-          ORDER BY category`;
-const [rows] = await conn.query(sql);
-res.render("productGallery", {"picGallery" : rows});
-});
-
-// Web API
-app.get('/api/product/:id', async(req, res) => {
-  let product_id = req.params.id;
-  let sql = `SELECT *
-             FROM product
-             WHERE product_id = ?`;
-  let [rows] = await conn.query(sql, [product_id]);
-  res.send(rows);
+          ORDER BY category, title`;
+  const [rows] = await conn.query(sql);
+  let sql2 = `SELECT DISTINCT category
+              FROM product
+              ORDER BY category`;
+  const [rows2] = await conn.query(sql2);
+  res.render("productGallery", {"picGallery" : rows, "categories": rows2});
 });
 
 app.get("/customSets", isAuthenticated, async (req, res) => {
