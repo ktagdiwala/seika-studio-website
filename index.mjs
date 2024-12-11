@@ -37,19 +37,25 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/customSets", async (req, res)=>{
-  let sql = `SELECT *
-            FROM custom_set
-            ORDER BY name`;
-  const [rows] = await conn.query(sql);
-  res.render("customSets", {"sets":rows});
+app.get("/customSets", isAuthenticated, async (req, res)=>{
+    // let user_id = SESSION USER ID
+    let sql = `SELECT *
+    FROM custom_set
+    ORDER BY name`;
+    // let params = [user_id];
+    const [rows] = await conn.query(sql);
+    res.render("customSets", {"sets":rows});
 });// View custom nail sets created by user
 
-app.get("/customSets/new", (req, res)=>{
-  res.render("createCustomSet");
+app.get("/customSets/new",isAuthenticated, (req, res)=>{
+  if (req.session.authenticated) {
+    res.render("createCustomSet");
+  } else {
+    res.redirect("/loginSignup");
+  }
 });// Create a custom nail set
 
-app.post("/customSets/new", async function(req, res){
+app.post("/customSets/new", isAuthenticated, async function(req, res){
   let user_id = req.body.user_id;
   let type = req.body.q1;
   let size = req.body.q2;
@@ -65,7 +71,7 @@ app.post("/customSets/new", async function(req, res){
              {"message": "Custom set added!"});
 });// Add customized set to user collection
 
-app.get("/customSets/edit", async function(req, res){
+app.get("/customSets/edit", isAuthenticated, async function(req, res){
   let set_id = req.query.setId;
   console.log("Set id = " + set_id);
   let sql = `SELECT * 
@@ -76,7 +82,7 @@ app.get("/customSets/edit", async function(req, res){
   res.render("editCustomSet", {"set":rows});
 });// edit existing set
 
-app.post("/customSets/edit", async function(req, res){
+app.post("/customSets/edit", isAuthenticated, async function(req, res){
   let set_id = req.body.set_id;
   let type = req.body.q1;
   let size = req.body.q2;
@@ -95,7 +101,7 @@ app.post("/customSets/edit", async function(req, res){
   res.redirect("/customSets");
 });// update set info (based on edits) in database
 
-app.get("/customSets/delete", async function(req, res){
+app.get("/customSets/delete", isAuthenticated, async function(req, res){
   let set_id = req.query.setId;
   let sql = `DELETE
               FROM custom_set
@@ -139,7 +145,7 @@ app.post("/loginSignup", async (req, res) => {
     req.session.authenticated = true;
     res.render("landingPage");
   } else {
-    res.redirect("/");
+    res.render("loginSignup", {"message": "Incorrect username or password."});
   }
 });
 
@@ -175,7 +181,7 @@ app.listen(3000, () => {
 // Used as a Middleware function to check if the user is signed in for certain routes
 function isAuthenticated(req, res, next) {
   if (!req.session.authenticated) {
-    res.redirect("/");
+    res.redirect("/loginSignup");
   } else {
     next();
   }
