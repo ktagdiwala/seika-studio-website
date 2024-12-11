@@ -3,7 +3,7 @@
     <%- include("partials/nav.ejs") %>
     <h2>Edit a Custom Set</h2>
    
-    <form method="POST" action="/customSets/edit" class="input-form">
+    <form method="POST" action="/customSets/edit" class="input-form d-flex flex-column justify-content-center align-items-center">
         <!-- UPDATE user_id TO BE SET BASED ON SESSIONS -->
         <input type="hidden" name="user_id" value="1">
         <input type="hidden" name="set_id" value="<%=set[0].set_id%>">
@@ -62,8 +62,7 @@
 
         <div class="cell">
             <!-- Q4 Description -->
-            <h3>4. Describe your nail set. You can include specs such as shape, colors,
-                designs, charms, effects, etc.</h3>
+            <h3>4. Describe your nail set. You can include specs such as shape, colors, designs, charms, effects, etc.</h3>
             <textarea id="q4" name="q4" required="required"><%=set[0].description%></textarea>
             <br><br>
             <div id="q4Feedback" class = "feedback"></div>
@@ -77,7 +76,7 @@
             <div id="q5Feedback" class = "feedback"></div>
         </div>
 
-        <button id="update">Update</button>
+        <button id="update" class = "btn btn-primary">Update</button>
     </form>
 
     <%- include("partials/footer.ejs") %>

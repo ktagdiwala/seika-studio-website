@@ -26,6 +26,10 @@
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
+                    <p></p>
+                    <% if (typeof message != "undefined"){ %>
+                        <h3 class="feedback"><%=message%></h3>
+                    <% } %>
                 </div>
             </div>
         </div>
