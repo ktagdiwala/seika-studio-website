@@ -37,6 +37,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/bookAnAppointment", (req, res) => {
+  res.render("bookAnAppointment");
+});
+
 app.get("/customSets", isAuthenticated, async (req, res)=>{
     // let user_id = SESSION USER ID
     let sql = `SELECT *
