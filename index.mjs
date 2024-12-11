@@ -63,16 +63,6 @@ app.get("/productGallery", async (req, res) => {
   res.render("productGallery", {"picGallery" : rows, "categories": rows2});
 });
 
-// Web API
-app.get('/api/product/:id', async(req, res) => {
-  let product_id = req.params.id;
-  let sql = `SELECT *
-             FROM product
-             WHERE product_id = ?`;
-  let [rows] = await conn.query(sql, [product_id]);
-  res.send(rows);
-});
-
 app.get("/customSets", isAuthenticated, async (req, res) => {
     // let user_id = SESSION USER ID
     let sql = `SELECT *
