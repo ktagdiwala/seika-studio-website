@@ -318,7 +318,8 @@ footer {
     width: 100%;
   }
  .modal-content {
-    background-color: #F1F2EB;
+    background-color: #D5C7BE;
+    color: #253529;
  }
 
 .parallax-container {
@@ -340,7 +341,21 @@ footer {
     background-position: center;
     background-attachment: fixed;
 }
-
+.form-control {
+    width: 200px; 
+    max-width: 100%;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  .input-group > .form-control {
+    border-radius: 8px !important; 
+  }
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between; 
+  }
 .parallax-content {
     display: flex;
     justify-content: center;
