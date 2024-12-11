@@ -1,6 +1,25 @@
 <%- include("partials/header.ejs") %> 
     <body>
         <%- include("partials/nav.ejs") %>
+        <div class="parallax-container">
+            <div class="parallax-content">
+                <div>
+                    <h1 class="title">Seika Studio</h1>
+                    <form action="/productGallery">
+                        <button class = "btn btn-outline-primary">Product Gallery</button>
+                    </form>
+                </div>
+                <img src="/img/seika-logo-edited.png" class="title-image">
+            </div>
+        </div>
+        <div class="content">
+            <p>Additional content on the page...</p>
+        </div>
+        <form action="/logout">
+            <button>
+                Logout
+            </button>
+        </form>
         <%- include("partials/footer.ejs") %>
     </body>
 </html>
