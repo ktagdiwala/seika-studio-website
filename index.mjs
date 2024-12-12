@@ -121,6 +121,37 @@ app.get("/signUp", isAuthenticated("/profile"), (req, res) => {
   res.render("signUp");
 });
 
+// POST Route
+app.post("/signUp", async (req, res) => {
+  const { email, password, name, phone, zip } = req.body; 
+
+  if (!email || !password || !name || !phone || !zip) {
+    return res.render("signUp", { message: "All fields are required."});
+  }
+
+  if (phone.length < 10 || phone.length > 10) {
+    return res.render("signUp", { message: "Enter a valid phone number of 10 numbers without symbols."});
+  }
+
+  if (zip.length < 5 || zip.length > 5) {
+    return res.render("signUp", { message: "Enter a valid zipcode of 5 numbers."});
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10); 
+
+  const [existingUserRows] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
+  if (existingUserRows.length > 0) {
+    return res.render("signUp", { message: "User with this email already exist"});
+  }
+
+  const [result] = await pool.execute(
+    'INSERT INTO user (email, password, name, phone, zip) VALUES (?, ?, ?, ?, ?)', 
+    [email, hashedPassword, name, phone, zip]
+  );
+
+  res.render("signUp", { message: "User created succesfully"});
+});
+
 // --- Profile Page ---
 app.get("/profile", isNotAuthenticated("/login"), async (req, res) => {
   console.log("Rendering to /profile");
