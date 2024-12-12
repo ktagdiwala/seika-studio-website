@@ -190,7 +190,6 @@ app.post("/loginSignup", async (req, res) => {
 app.post("/signUp", async (req, res) => {
   const { email, password, name, phone, zip } = req.body; 
 
-  // Basic input validation 
   if (!email || !password || !name || !phone || !zip) {
     res.render("signUp", {"message": "All fields are required."});
   }
@@ -206,8 +205,6 @@ app.post("/signUp", async (req, res) => {
     'INSERT INTO user (email, password, name, phone, zip) VALUES (?, ?, ?, ?, ?)', 
     [email, hashedPassword, name, phone, zip]
   );
-
-  const userId = result.insertId; 
 
   res.render("signUp", {"message": "User created succesfully"});
 });
