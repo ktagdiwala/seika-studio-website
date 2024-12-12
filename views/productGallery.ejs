@@ -9,9 +9,9 @@
         <h2>
           <%if(j.category!="Miscellaneous"){ %>
             <%= j.category %> Collection
-          <%} else {%>
-            <%= j.category %>
-          <%}%>
+              <%} else {%>
+                <%= j.category %>
+                  <%}%>
         </h2>
         <div class="container">
           <div class="row">
@@ -26,17 +26,14 @@
                       <h5 class="card-title">
                         <%= picGallery[i].title %>
                       </h5>
-                      <p class="card-text">
-                        <%= picGallery[i].description %>
-                      </p>
                     </div>
                   </div>
                 </div>
-              <% } %>
-            <% } %>
+                <% } %>
+                  <% } %>
           </div>
         </div>
-      <% } %>
+        <% } %>
 
       <!-- Modal -->
       <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel"
@@ -56,10 +53,8 @@
           </div>
         </div>
       </div>
-
-      <script src="js/script.js"></script>
-
       <%- include("partials/footer.ejs") %>
+      <script src="/js/script.js"></script>
   </body>
 
-  </html>
+</html>

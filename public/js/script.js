@@ -4,6 +4,28 @@ let productLinks = document.querySelectorAll("a.gallery");
 for (let productLink of productLinks) {
     productLink.addEventListener("click", getArtInfo);
 }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    let initialScrollTop = 0;
+
+    const galleryModal = document.getElementById('galleryModal');
+
+    galleryModal.addEventListener('show.bs.modal', function () {
+        initialScrollTop = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${initialScrollTop}px`;
+        document.body.style.width = '100%';  // Prevent horizontal scroll issues
+    });
+
+    galleryModal.addEventListener('hidden.bs.modal', function () {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        window.scrollTo(0, initialScrollTop);
+    });
+});
+
+
+// functions
 async function getArtInfo() {
     var myModal = new bootstrap.Modal(document.getElementById('galleryModal'));
     myModal.show();
@@ -19,3 +41,4 @@ async function getArtInfo() {
             <p><strong>Category:</strong> ${data[0].category}</p>
         </div>`;
 }
+
