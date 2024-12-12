@@ -1,10 +1,11 @@
 body {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: top;
     min-height: 100vh;
     position: relative;
     align-items: center;
+    align-content: center;
     font-family: "Crimson Text", serif;
     font-weight: 400;
     font-optical-sizing: auto;
@@ -14,8 +15,13 @@ body {
     text-align: center;
     min-height: 100vh;
     margin: 0;
-    justify-content: space-between;
 }
+
+/* hr {
+    justify-self: center;
+    width: 100%;
+    margin: 0px;
+} */
 
 nav {
     display: flex;
@@ -60,8 +66,8 @@ nav {
 }
 
 .footer {
+    margin-top: auto;
     width: 100%;
-    padding-left: 4em;
     color: #C19A6B;
     font-weight: 400;
 }
@@ -223,35 +229,6 @@ textarea {
     padding: 5px;
 }
 
-/* nav a {
-    padding: 15px;
-    padding-bottom: 4px;
-    font-family: "Wix Madefor Text", sans-serif;
-    font-size: 1.5em;
-    text-decoration: none;
-    color: black;
-}
-
-nav a:hover {
-    border-bottom: 2px teal solid;
-    font-size: 1.7em;
-    transition: .9s;
-}
-
-nav a.current {
-    font-weight: bold;
-    }
-
-footer {
-    font-family: "Wix Madefor Text", sans-serif;
-    font-size:16px;
-    letter-spacing: 0.05em;
-    padding-top: 1em;
-    padding-left: 4em;
-    color:black;
-    width: 100%;
-  }*/
-
 .modal-content {
     background-color: #D5C7BE;
     color: #253529;
@@ -263,11 +240,11 @@ body.modal-open {
     width: 100%;
     top: 0;
 }
- 
+
 .parallax-container {
     position: relative;
     width: 100%;
-    height: 75vh;
+    height: 90vh;
     /* Adjust height as needed */
     overflow: hidden;
 }
@@ -319,11 +296,82 @@ body.modal-open {
 
 .content {
     width: 100%;
-    /* content width fills page */
-    max-width: 1200px;
+}
+
+.content-text {
+    align-content: center;
+    max-width: 40%;
     padding: 20px;
-    height: 200px;
-    /* Dummy content to enable scrolling */
+    border: #535446 solid;
+}
+
+#orderItems {
+    max-height: 70vh;
+    width: auto;
+    object-fit: scale-down;
+    padding-left: 40px;
+}
+
+.artistImg {
+    border: #535446 solid;
+    max-width: 50vh;
+    padding: 5px;
+    margin: 10px;
+}
+
+.section {
+    width: 100%;
+    padding: 40px;
+}
+
+.sectionColor1 {
+    background-color: #D8E2DC;
+}
+
+.sectionColor2 {
+    background-color: #F0E2CE;
+}
+
+#aboutSection td p {
+    width: 75%;
+    justify-self: center;
+}
+
+#aboutSection h3 {
+    font-family: "Poiret One", sans-serif;
+    font-weight: bold;
+}
+
+.d-flex img {
+    flex-shrink: 1;
+}
+
+.coupons {
+    justify-self: center;
+    width: 70%;
+    border: #3d0c02a5 2px solid;
+    font-size: large;
+}
+
+.coupons tr th {
+    align-items: center;
+    vertical-align: middle;
+    background-color: #D5C7BE;
+    color: #3d0c02;
+    border: #3d0c02a5 2px solid;
+}
+
+.coupons tr th h3 {
+    font-family: "Poiret One", sans-serif;
+    font-weight: bold;
+}
+
+.coupons tr td {
+    align-items: center;
+    vertical-align: middle;
+    border: #3d0c02a5 2px solid;
+    color: #3d0c02;
+    background-color: #F6F3E7;
 }
 
 .title {
@@ -338,6 +386,16 @@ body.modal-open {
     margin: 20px;
     border: #3d0c02bd 4px solid;
     border-radius: 100%;
+}
+
+.subtitle {
+    display: inline;
+    background-color: #d5c7bec1;
+    color: #3d0c02;
+    padding: 2px 7px;
+    /* font-size: medium; */
+    font-family: "Poiret One", sans-serif;
+    font-weight: bold;
 }
 
 .btn-outline-primary {
@@ -387,20 +445,22 @@ body.modal-open {
 }
 
 .form-control {
-    width: 200px; 
+    width: 200px;
     max-width: 100%;
     border-radius: 8px;
     box-sizing: border-box;
-  }
-  .input-group > .form-control {
-    border-radius: 8px !important; 
-  }
-  .form-row {
+}
+
+.input-group>.form-control {
+    border-radius: 8px !important;
+}
+
+.form-row {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between; 
-  }
+    justify-content: space-between;
+}
 
 .form-check {
     display: flex;
@@ -412,7 +472,7 @@ body.modal-open {
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 75%;
+    padding-bottom: 60%;
 }
 
 #googleCalendar iframe {
@@ -449,4 +509,23 @@ body.modal-open {
 .attachedColorBg {
     background-color: #D5C7BE;
     color: #380006;
+}
+
+.profile-table {
+    width: 30%;
+    border: #3d0c02a5 2px solid;
+    font-family: "Crimson Text", serif;
+    font-size: large;
+}
+
+.profile-table tr th {
+    background-color: #D5C7BE;
+    color: #3d0c02;
+    border: #3d0c02a5 2px solid;
+}
+
+.profile-table tr td {
+    border: #3d0c02a5 2px solid;
+    color: #3d0c02;
+    background-color: #F6F3E7;
 }

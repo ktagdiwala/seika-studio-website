@@ -29,8 +29,8 @@ app.use(
 app.use((req, res, next) => {
   res.locals.user = req.session.userId;
   res.locals.name = req.session.name;
-  console.log(res.locals.user);
-  console.log(res.locals.name);
+  console.log("User ID: " + res.locals.user);
+  console.log("User name: " + res.locals.name);
   next();
 });
 
@@ -85,15 +85,18 @@ app.post("/login", async (req, res) => {
 
   const [rows] = await conn.query(sql, [username]);
 
-  console.log(rows);
 
   if (rows.length > 0) {
+    console.log("User found:");
+    console.log(rows);
     passwordHash = rows[0].password;
+  }else{
+    console.log("User with that email does not exist.");
   }
 
   const passwordMatch = await bcrypt.compare(password, passwordHash);
 
-  console.log(passwordMatch);
+  console.log("Passwords Match?: " + passwordMatch);
 
   if (passwordMatch) {
     req.session.authenticated = true;
@@ -150,10 +153,16 @@ app.post("/signUp", async (req, res) => {
 });
 
 // --- Profile Page ---
-app.get("/profile", isNotAuthenticated("/login"), (req, res) => {
+app.get("/profile", isNotAuthenticated("/login"), async (req, res) => {
   console.log("Rendering to /profile");
-  console.log(!req.session.authenticated);
-  res.render("profile");
+  console.log("Session authenticated?: " + req.session.authenticated);
+  console.log("User ID for profile: " + req.session.userId);
+  let sql = `SELECT name, email, phone, zip 
+              FROM user
+              WHERE user_id = ?`;
+  let params = [req.session.userId];
+  const [rows] = await conn.query(sql, params);
+  res.render("profile", {user: rows});
 });
 
 // --- Logout Route ---
@@ -194,12 +203,13 @@ app.get("/api/product/:id", async (req, res) => {
 // --- Custom Sets Page ---
 // TODO - Update this route to use the current user's ID
 app.get("/customSets", isNotAuthenticated("/login"), async (req, res) => {
-  // let user_id = SESSION USER ID
+  let user_id = req.session.userId;
   let sql = `SELECT *
     FROM custom_set
+    WHERE user_id = ?
     ORDER BY name`;
-  // let params = [user_id];
-  const [rows] = await conn.query(sql);
+  let params = [user_id];
+  const [rows] = await conn.query(sql, params);
   console.log("Rendering to /customSets");
   res.render("customSets", { sets: rows });
 }); // View custom nail sets created by user
@@ -216,7 +226,7 @@ app.post(
   "/customSets/new",
   isNotAuthenticated("/login"),
   async function (req, res) {
-    let user_id = req.body.user_id;
+    let user_id = req.session.userId; //associates a user with the custom set
     let type = req.body.q1;
     let size = req.body.q2;
     let length = req.body.q3;
@@ -239,7 +249,6 @@ app.get(
   isNotAuthenticated("/login"),
   async function (req, res) {
     let set_id = req.query.setId;
-    console.log("Set id = " + set_id);
     let sql = `SELECT * 
               FROM custom_set
               WHERE set_id =  ?`;
@@ -275,16 +284,18 @@ app.post(
   }
 ); // update set info (based on edits) in database
 
-// --- Delete Custom Set Page ---
+// --- Delete Custom Set ---
 app.get(
   "/customSets/delete",
   isNotAuthenticated("/login"),
   async function (req, res) {
+    let user_id = req.session.userId;
     let set_id = req.query.setId;
     let sql = `DELETE
               FROM custom_set
-              WHERE set_id = ?`;
-    const [rows] = await conn.query(sql, [set_id]);
+              WHERE set_id = ?
+              AND user_id = ?`;
+    const [rows] = await conn.query(sql, [set_id, user_id]);
 
     console.log("Redirecting to /customSets");
     res.redirect("/customSets");
