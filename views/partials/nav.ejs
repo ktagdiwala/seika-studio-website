@@ -49,19 +49,11 @@
             <button class="nav-link">Custom Sets</button>
           </form>
         </li>
-        <% if (!user) { %>
         <li class="nav-item">
-          <form action="/loginSignup">
-            <button class="nav-link">Login</button>
+          <form action="/profile">
+            <button class="nav-link">Profile</button>
           </form>
         </li>
-        <% } else { %>
-        <li class="nav-item">
-          <form action="/logout">
-            <button class="nav-link">Logout</button>
-          </form>
-        </li>
-        <% } %>
       </ul>
     </div>
   </div>

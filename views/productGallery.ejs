@@ -19,9 +19,8 @@
               <%if (picGallery[i].category==j.category) {%>
                 <div class="col-12 col-sm-6 col-md-4 mb-3">
                   <div class="card h-100 attachedColorBg">
-                    <a href="#" class="gallery" id="<%= picGallery[i].product_id %>">
-                      <img src="./img/<%= picGallery[i].title %>.jpg" class="card-img-top"
-                        alt="<%= picGallery[i].title %>">
+                    <a href = "#" class="gallery" id="<%= picGallery[i].product_id %>">
+                      <img src="./img/<%= picGallery[i].title %>.jpg" class="card-img-top" alt="<%= picGallery[i].title %>">
                     </a>
                     <div class="card-body">
                       <h5 class="card-title">
@@ -39,21 +38,20 @@
         </div>
         <% } %>
 
-          <!-- Modal -->
-        <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="galleryModalLabel">Product Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div id="productInfo"></div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
+      <!-- Modal -->
+      <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="galleryModalLabel" >Product Information</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div id="productInfo"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>

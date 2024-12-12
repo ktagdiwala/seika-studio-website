@@ -263,7 +263,7 @@ body.modal-open {
     width: 100%;
     top: 0;
 }
-
+ 
 .parallax-container {
     position: relative;
     width: 100%;
@@ -385,6 +385,22 @@ body.modal-open {
     font-family: "Crimson Text", serif;
     font-weight: 400;
 }
+
+.form-control {
+    width: 200px; 
+    max-width: 100%;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  .input-group > .form-control {
+    border-radius: 8px !important; 
+  }
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between; 
+  }
 
 .form-check {
     display: flex;
