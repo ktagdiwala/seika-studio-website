@@ -123,14 +123,22 @@ app.post("/signUp", async (req, res) => {
   const { email, password, name, phone, zip } = req.body; 
 
   if (!email || !password || !name || !phone || !zip) {
-    res.render("signUp", {"message": "All fields are required."});
+    return res.render("signUp", { message: "All fields are required."});
+  }
+
+  if (phone.length < 10 || phone.length > 10) {
+    return res.render("signUp", { message: "Enter a valid phone number of 10 numbers without symbols."});
+  }
+
+  if (zip.length < 5 || zip.length > 5) {
+    return res.render("signUp", { message: "Enter a valid zipcode of 5 numbers."});
   }
 
   const hashedPassword = await bcrypt.hash(password, 10); 
 
   const [existingUserRows] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
   if (existingUserRows.length > 0) {
-    res.render("signUp", {"message": "User with this email already exist"});
+    return res.render("signUp", { message: "User with this email already exist"});
   }
 
   const [result] = await pool.execute(
@@ -138,7 +146,7 @@ app.post("/signUp", async (req, res) => {
     [email, hashedPassword, name, phone, zip]
   );
 
-  res.render("signUp", {"message": "User created succesfully"});
+  res.render("signUp", { message: "User created succesfully"});
 });
 
 // --- Profile Page ---
