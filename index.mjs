@@ -187,39 +187,30 @@ app.post("/loginSignup", async (req, res) => {
   }
 });
 
-// app.post("/signUp", async (req, res) => {
-//   let username = req.body.email;
-//   let password = req.body.password;
+app.post("/signUp", async (req, res) => {
+  const { email, password, name, phone, zip } = req.body; 
 
-//   console.log(username);
-//   console.log(password);
+  // Basic input validation 
+  if (!email || !password || !name || !phone || !zip) {
+    res.render("signUp", {"message": "All fields are required."});
+  }
 
-//   let passwordHash = "";
+  const hashedPassword = await bcrypt.hash(password, 10); 
 
-//   let sql = `SELECT * 
-//               FROM user
-//               WHERE email = ?`;
+  const [existingUserRows] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
+  if (existingUserRows.length > 0) {
+    res.render("signUp", {"message": "User with this email already exist"});
+  }
 
-//   const [rows] = await conn.query(sql, [username]);
+  const [result] = await pool.execute(
+    'INSERT INTO user (email, password, name, phone, zip) VALUES (?, ?, ?, ?, ?)', 
+    [email, hashedPassword, name, phone, zip]
+  );
 
-//   console.log(rows);
+  const userId = result.insertId; 
 
-//   if (rows.length > 0) {
-//     passwordHash = rows[0].password;
-//   }
-
-//   const passwordMatch = await bcrypt.compare(password, passwordHash);
-
-//   console.log(passwordMatch);
-
-//   if (passwordMatch) {
-//     req.session.authenticated = true;
-//     req.session.userId = rows[0].user_id;
-//     res.render("index");
-//   } else {
-//     res.render("loginSignup", {"message": "Incorrect username or password."});
-//   }
-// });
+  res.render("signUp", {"message": "User created succesfully"});
+});
 
 // Simple logout route
 app.get("/logout", isAuthenticated, (req, res) => {
