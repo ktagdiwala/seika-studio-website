@@ -1,5 +1,8 @@
 
 // Event listeners
+document.querySelector("#password").addEventListener("click", suggestPassword);
+document.querySelector("#zip").addEventListener("change", displayCity);
+
 let productLinks = document.querySelectorAll("a.gallery");
 for (let productLink of productLinks) {
     productLink.addEventListener("click", getArtInfo);
@@ -42,3 +45,32 @@ async function getArtInfo() {
         </div>`;
 }
 
+
+// Display suggested password from web API
+async function suggestPassword() {
+    let url = `https://webspace.csumb.edu/~lara4594/ajax/suggestedPwd.php?length=8`;
+    let response = await fetch(url);
+    let data = await response.json(); 
+
+    // Find the element to display the suggested password
+    let passwordSuggestion = document.querySelector("#passwordSuggestion");
+
+    // Display the suggested password
+    passwordSuggestion.innerHTML = `Suggested Password: ${data.password}`; 
+}
+
+//Displaying city from web API after entering a zip code
+async function displayCity() {
+    let zipCode = document.querySelector("#zip").value;
+    let url = `https://csumb.space/api/cityInfoAPI.php?zip=${zipCode}`;
+    let response = await fetch(url);
+    let data = await response.json();
+    // console.log(data);
+    if (data.city) {
+        document.querySelector("#city").innerHTML =`City: ${data.city}`;
+        document.querySelector("#city").style.color = "black";
+    } else {
+        document.querySelector("#city").innerHTML = "Zip code not found";
+        document.querySelector("#city").style.color = "red";
+    }
+}
