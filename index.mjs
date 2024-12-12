@@ -119,39 +119,35 @@ app.get("/signUp", isAuthenticated("/profile"), (req, res) => {
 });
 
 // POST Route
-// app.post("/signUp", async (req, res) => {
-//   let username = req.body.email;
-//   let password = req.body.password;
+app.post("/signUp", async (req, res) => {
+  const { email, password, name, phone, zip } = req.body; 
 
-//   console.log(username);
-//   console.log(password);
+  if (!email || !password || !name || !phone || !zip) {
+    return res.render("signUp", { message: "All fields are required."});
+  }
 
-//   let passwordHash = "";
+  if (phone.length < 10 || phone.length > 10) {
+    return res.render("signUp", { message: "Enter a valid phone number of 10 numbers without symbols."});
+  }
 
-//   let sql = `SELECT *
-//               FROM user
-//               WHERE email = ?`;
+  if (zip.length < 5 || zip.length > 5) {
+    return res.render("signUp", { message: "Enter a valid zipcode of 5 numbers."});
+  }
 
-//   const [rows] = await conn.query(sql, [username]);
+  const hashedPassword = await bcrypt.hash(password, 10); 
 
-//   console.log(rows);
+  const [existingUserRows] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
+  if (existingUserRows.length > 0) {
+    return res.render("signUp", { message: "User with this email already exist"});
+  }
 
-//   if (rows.length > 0) {
-//     passwordHash = rows[0].password;
-//   }
+  const [result] = await pool.execute(
+    'INSERT INTO user (email, password, name, phone, zip) VALUES (?, ?, ?, ?, ?)', 
+    [email, hashedPassword, name, phone, zip]
+  );
 
-//   const passwordMatch = await bcrypt.compare(password, passwordHash);
-
-//   console.log(passwordMatch);
-
-//   if (passwordMatch) {
-//     req.session.authenticated = true;
-//     req.session.userId = rows[0].user_id;
-//     res.render("index");
-//   } else {
-//     res.render("loginSignup", {"message": "Incorrect username or password."});
-//   }
-// });
+  res.render("signUp", { message: "User created succesfully"});
+});
 
 // --- Profile Page ---
 app.get("/profile", isNotAuthenticated("/login"), (req, res) => {
