@@ -27,7 +27,10 @@ app.use(
 
 // Making the userId available to all views without passing it in each route
 app.use((req, res, next) => {
-  res.locals.user = req.session.userId ? { id: req.session.userId } : null;
+  res.locals.user = req.session.userId;
+  res.locals.name = req.session.name;
+  console.log(res.locals.user);
+  console.log(res.locals.name);
   next();
 });
 
@@ -95,8 +98,13 @@ app.post("/login", async (req, res) => {
   if (passwordMatch) {
     req.session.authenticated = true;
     req.session.userId = rows[0].user_id;
-    console.log("Rendering to /index");
-    res.render("profile");
+    req.session.name = rows[0].name;
+
+    // Waiting for the session data to be updated
+    await req.session.save();
+
+    console.log("Redirecting to /profile");
+    res.redirect("profile");
   } else {
     console.log("Rendering to /login");
     res.render("login", { message: "Incorrect username or password." });
