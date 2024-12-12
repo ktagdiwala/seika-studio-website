@@ -19,7 +19,9 @@
               <%if (picGallery[i].category==j.category) {%>
                 <div class="col-12 col-sm-6 col-md-4 mb-3">
                   <div class="card h-100 attachedColorBg">
-                    <img src="./img/<%= picGallery[i].title %>.jpg" class="card-img-top" alt="<%= picGallery[i].title %>">
+                    <a href = "#" class="gallery" id="<%= picGallery[i].product_id %>">
+                      <img src="./img/<%= picGallery[i].title %>.jpg" class="card-img-top" alt="<%= picGallery[i].title %>">
+                    </a>
                     <div class="card-body">
                       <h5 class="card-title">
                         <%= picGallery[i].title %>
@@ -27,7 +29,6 @@
                       <p class="card-text">
                         <%= picGallery[i].description %>
                       </p>
-                      <p class="card-text"><small class="text-muted">More Information</small></p>
                     </div>
                   </div>
                 </div>
@@ -43,14 +44,14 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="galleryModalLabel">Author Information</h5>
+              <h5 class="modal-title" id="galleryModalLabel" >Product Information</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div id="picInfo" class="pic_info"></div>
+              <div id="productInfo"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
