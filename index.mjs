@@ -129,11 +129,11 @@ app.post("/signUp", async (req, res) => {
     return res.render("signUp", { message: "Please fill out all required fields."});
   }
 
-  if ((phone.length < 10 || phone.length > 10) && phone.length!=0) {
+  if ((phone.length < 10 || phone.length > 10 || !/^\d+$/.test(phone)) && phone.length!=0) {
     return res.render("signUp", { message: "Enter a valid phone number of 10 numbers without symbols."});
   }
 
-  if (zip.length < 5 || zip.length > 5) {
+  if (zip.length < 5 || zip.length > 5 || !/^\d+$/.test(zip)) {
     return res.render("signUp", { message: "Enter a valid zipcode of 5 numbers."});
   }
 
