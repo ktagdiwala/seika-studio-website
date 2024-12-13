@@ -1,6 +1,8 @@
 // Event listeners
 document.querySelector("#password")?.addEventListener("click", suggestPassword);
 document.querySelector("#zip")?.addEventListener("change", displayCity);
+document.querySelector("#retypePassword")?.addEventListener("change", checkPasswords);
+document.addEventListener("DOMContentLoaded", checkFeedback);
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Getting info for modal");
@@ -73,4 +75,23 @@ async function displayCity() {
     document.querySelector("#city").innerHTML = "Zip code not found";
     document.querySelector("#city").style.color = "red";
   }
+}
+
+function checkPasswords() {
+    let feedback = document.querySelector("#fdbk")
+    let password = document.querySelector("#password").value;
+    let retypePassword = document.querySelector("#retypePassword").value;
+    feedback.innerHTML = "";
+    if(password != retypePassword){
+        feedback.innerHTML = "Passwords must match.";
+    }
+}
+
+function checkFeedback(){
+    let feedback = document.querySelector("#fdbk");
+    if(feedback.innerText=="User created successfully"){
+        feedback.style.color = "#36630E";
+    }else{
+        feedback.style.color = "#AE0C00";
+    }
 }

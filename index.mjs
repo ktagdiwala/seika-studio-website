@@ -125,11 +125,11 @@ app.get("/signUp", isAuthenticated("/profile"), (req, res) => {
 app.post("/signUp", async (req, res) => {
   const { email, password, name, phone, zip } = req.body; 
 
-  if (!email || !password || !name || !phone || !zip) {
-    return res.render("signUp", { message: "All fields are required."});
+  if (!email || !password || !name || !zip) {
+    return res.render("signUp", { message: "Please fill out all required fields."});
   }
 
-  if (phone.length < 10 || phone.length > 10 || !/^\d+$/.test(phone)) {
+  if ((phone.length < 10 || phone.length > 10 || !/^\d+$/.test(phone)) && phone.length!=0) {
     return res.render("signUp", { message: "Enter a valid phone number of 10 numbers without symbols."});
   }
 
@@ -141,7 +141,7 @@ app.post("/signUp", async (req, res) => {
 
   const [existingUserRows] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
   if (existingUserRows.length > 0) {
-    return res.render("signUp", { message: "User with this email already exist"});
+    return res.render("signUp", { message: "User with this email already exists."});
   }
 
   const [result] = await pool.execute(
@@ -149,7 +149,7 @@ app.post("/signUp", async (req, res) => {
     [email, hashedPassword, name, phone, zip]
   );
 
-  res.render("signUp", { message: "User created succesfully"});
+  res.render("signUp", { message: "User created successfully"});
 });
 
 // --- Profile Page ---
