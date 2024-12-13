@@ -85,12 +85,11 @@ app.post("/login", async (req, res) => {
 
   const [rows] = await conn.query(sql, [username]);
 
-
   if (rows.length > 0) {
     console.log("User found:");
     console.log(rows);
     passwordHash = rows[0].password;
-  }else{
+  } else {
     console.log("User with that email does not exist.");
   }
 
@@ -110,7 +109,7 @@ app.post("/login", async (req, res) => {
     res.redirect("profile");
   } else {
     console.log("Rendering to /login");
-    res.render("login", { message: "Incorrect username or password." });
+    res.render("login", { message: "Incorrect email or password." });
   }
 });
 
@@ -123,33 +122,47 @@ app.get("/signUp", isAuthenticated("/profile"), (req, res) => {
 
 // POST Route
 app.post("/signUp", async (req, res) => {
-  const { email, password, name, phone, zip } = req.body; 
+  const { email, password, name, phone, zip } = req.body;
 
   if (!email || !password || !name || !zip) {
-    return res.render("signUp", { message: "Please fill out all required fields."});
+    return res.render("signUp", {
+      message: "Please fill out all required fields.",
+    });
   }
 
-  if ((phone.length < 10 || phone.length > 10 || !/^\d+$/.test(phone)) && phone.length!=0) {
-    return res.render("signUp", { message: "Enter a valid phone number of 10 numbers without symbols."});
+  if (
+    (phone.length < 10 || phone.length > 10 || !/^\d+$/.test(phone)) &&
+    phone.length != 0
+  ) {
+    return res.render("signUp", {
+      message: "Enter a valid phone number of 10 numbers without symbols.",
+    });
   }
 
   if (zip.length < 5 || zip.length > 5 || !/^\d+$/.test(zip)) {
-    return res.render("signUp", { message: "Enter a valid zipcode of 5 numbers."});
+    return res.render("signUp", {
+      message: "Enter a valid zipcode of 5 numbers.",
+    });
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10); 
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  const [existingUserRows] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
+  const [existingUserRows] = await pool.execute(
+    "SELECT * FROM user WHERE email = ?",
+    [email]
+  );
   if (existingUserRows.length > 0) {
-    return res.render("signUp", { message: "User with this email already exists."});
+    return res.render("signUp", {
+      message: "User with this email already exists.",
+    });
   }
 
   const [result] = await pool.execute(
-    'INSERT INTO user (email, password, name, phone, zip) VALUES (?, ?, ?, ?, ?)', 
+    "INSERT INTO user (email, password, name, phone, zip) VALUES (?, ?, ?, ?, ?)",
     [email, hashedPassword, name, phone, zip]
   );
 
-  res.render("signUp", { message: "User created successfully"});
+  res.render("signUp", { message: "User created successfully" });
 });
 
 // --- Profile Page ---
@@ -162,7 +175,7 @@ app.get("/profile", isNotAuthenticated("/login"), async (req, res) => {
               WHERE user_id = ?`;
   let params = [req.session.userId];
   const [rows] = await conn.query(sql, params);
-  res.render("profile", {user: rows});
+  res.render("profile", { user: rows });
 });
 
 // --- Logout Route ---
