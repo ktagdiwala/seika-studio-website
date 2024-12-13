@@ -5,6 +5,7 @@
             <div class="parallax-content">
                 <div>
                     <h1 class="title">Seika Studio</h1>
+                    <p class="subtitle">Nail Artist • Custom Press-Ons • At-Home Services</p>
                     <form action="/productGallery">
                         <button class = "btn btn-outline-primary">Product Gallery</button>
                     </form>
@@ -13,13 +14,98 @@
             </div>
         </div>
         <div class="content">
-            <p>Additional content on the page...</p>
+            <div class="d-flex justify-content-center section">
+                <div class="content-text">
+                    <h2>What is Included in Your Orders?</h2>
+                    <p>
+                        All of our orders will include the beautifully customized nail set,
+                        an alcohol prep pad, nail adhesives, and an instruction manual.
+                        <br><br>
+                        Personally, we believe in quality over quantity. We delicately 
+                        prepared the nail sets for you and guide you through the 
+                        nail application process thoroughly.
+                    </p>
+                </div>
+                <img src="/img/orderItems.jpg" alt="Items in your order" id="orderItems">
+            </div>
+            <div class="section sectionColor2">
+                <h2>Coupons</h2>
+                <table class="coupons">
+                    <tr>
+                        <th><h3>First Time Clients</h3></th>
+                        <td><p>
+                            Both real time clients and press on clients have a chance to redeem this code 
+                            <br>Save 10% on your first set
+                        </p></td>
+                    </tr>
+                    <tr>
+                        <th><h3>Birthday Gift</h3></th>
+                        <td><p>
+                            Save 20% on your customized birthday set 
+                            <br>Available for in-person and press-on nail sets
+                        </p></td>
+                    </tr>
+                    <tr>
+                        <th><h3>Combo Package</h3></th>
+                        <td><p>
+                            Mix and match three press on nails for the price of $100 
+                            <br>(Complex, simple, or mixed)
+                        </p></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="section sectionColor1">
+                <h2>Meet Your Artists</h2>
+                <table id="aboutSection">
+                    <tr>
+                        <th><h3>Boa</h3></th>
+                        <th><h3>Poppy</h3></th>
+                        <th><h3>Soya</h3></th>
+                    </tr>
+                    <tr>
+                        <td><img src="/img/Bluephoria.jpg" alt="bluephoria nail set" class="artistImg"></td>
+                        <td><img src="/img/poppyNails.jpg" alt="bluephoria nail set" class="artistImg"></td>
+                        <td><img src="/img/pacific.jpg" alt="bluephoria nail set" class="artistImg"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Art has always been a passion of mine, and earlier this year
+                                I began to explore the world of nail art. It's been challenging 
+                                since nail art can be so intricate and detailed, but I've truly grown to love it.
+                                I'm excited to announce that my friends and I are now turning this passion 
+                                into a business, creating custom and handmade press-on nails!
+                                <br><br>
+                                Our focus is on quality, so each set is carefully crafted with durability and 
+                                reusability in mind. Our goal is to bring joy and creativity to your nail set. 
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                Ever since I was young, I've been a nailbiter. Getting my nails done was always 
+                                something that prevented me from doing that, but doing them at salons cost money that 
+                                I didn't have. So I learned and started making nails for myself. 
+                                Eventually, I started doing the nails of other people and making fresh sets for them. 
+                                <br><br>
+                                I'm exploring the different genres of nail art right now and different ways to 
+                                incorporate art into the nail. Please give me a chance to design a beautiful set for you.
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                I love anything arts and crafts. Whenever I see something that interests me, 
+                                I would find ways to make it from scraps I find around my house. Then one day, 
+                                I was inspired by my friends to start doing nails and so I did. 
+                                At first I struggled and made countless mistakes, but as time went on my work progressed! 
+                                <br><br>
+                                I'm currently practicing nature-like designs, but I'm also open to learning other 
+                                types of nail art. Although I'm quite new in the nail department, I hope you'll like 
+                                my future sets!
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <form action="/logout">
-            <button class="btn btn-primary">
-                Logout
-            </button>
-        </form>
         <%- include("partials/footer.ejs") %>
     </body>
 </html>
