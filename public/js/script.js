@@ -1,7 +1,7 @@
 // Event listeners
 document.querySelector("#password")?.addEventListener("click", suggestPassword);
 document.querySelector("#zip")?.addEventListener("change", displayCity);
-document.querySelector("#retypePassword").addEventListener("change", checkPasswords);
+document.querySelector("#retypePassword")?.addEventListener("change", checkPasswords);
 document.addEventListener("DOMContentLoaded", checkFeedback);
 
 document.addEventListener("DOMContentLoaded", () => {
